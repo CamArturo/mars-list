@@ -40,7 +40,7 @@ $(function () {
         <section class="item">
           <section class="item-left">
             <p>${item.item_name}</p>
-            <input type="checkbox" name="item" value="${item.item_packed}">Packed<br>
+            <input id="${item.id}" type="checkbox" name="item" value="${item.item_packed}">Packed<br>
           </section>
           <section class="item-right">
             <button id="${item.id}" class="delete-btn btn">Delete</button>
@@ -63,9 +63,29 @@ const deleteItem = (id) => {
   })
 };
 
+const updatePacked = (id, value) => {
+
+  fetch(`/api/v1/items/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify({
+      value
+    }),
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+};
+
 $(".items-container").on( "click", ".delete-btn", function (event) {
   const id = event.target.id;
   deleteItem(id);
+});
+
+$(".items-container").on("click", "input:checkbox", function (event) {
+  const id = event.target.id;
+  const value = ($(this).is(":checked"));
+
+  updatePacked(id, value);
 });
 
 $(".add-item").on("click", grabItem);

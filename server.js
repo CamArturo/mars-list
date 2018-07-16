@@ -60,6 +60,23 @@ app.delete('/api/v1/items/:itemId', (request, response) => {
     });
 });
 
+app.patch('/api/v1/items/:itemId', (request, response) => {
+  const id = request.params.itemId;
+  let updatedItem = request.body;
+  updatedItem = {
+    item_packed: updatedItem.value
+  };
+
+  database('items').where("id", id)
+    .update(updatedItem)
+    .then(item => {
+      response.sendStatus(201);
+    })
+    .catch(error => {
+      response.status(500).json({error});
+    });
+});
+
 app.listen(app.get("port"), () => {
-  console.log(`${app.locals.title} is running on ${app.get("port")}.`);
+  console.log(`Running on ${app.get("port")}.`);
 });
