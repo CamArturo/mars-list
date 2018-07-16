@@ -4,7 +4,7 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: "postgres://localhost/marsList",
+    connection: "postgres://localhost/marslist",
     migrations: {
       directory: './db/migrations'
     },
@@ -28,20 +28,20 @@ module.exports = {
   //   }
   // },
 
-  production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
-  }
+  // production: {
+  //   client: 'postgresql',
+  //   connection: {
+  //     database: 'my_db',
+  //     user:     'username',
+  //     password: 'password'
+  //   },
+  //   pool: {
+  //     min: 2,
+  //     max: 10
+  //   },
+  //   migrations: {
+  //     tableName: 'knex_migrations'
+  //   }
+  // }
 
 };
