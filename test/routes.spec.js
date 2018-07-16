@@ -28,5 +28,45 @@ describe("Client Routes", () => {
 });
 
 describe("API Routes", () => {
-
+  describe("GET /api/v1/items", () => {
+    it("should return all of the items with correct column names", done => {
+      chai.request(server)
+        .get("/api/v1/items")
+        .end((err, response) => {
+          response.should.have.status(200);
+          response.should.be.json;
+          response.body.should.be.a("array");
+          response.body[0].should.have.property("item_name");
+          response.body[0].should.have.property("item_packed");
+          done();
+        });
+    });
+  });
+  describe("POST /api/v1/items", () => {
+    it("should add an item to db", done => {
+      chai.request(server)
+        .post("/api/v1/items")
+        .send({
+          item_name: "newItem!",
+          item_packed: false
+        })
+        .end((err, response) => {
+          response.should.have.status(201);
+          response.body.should.be.a("object");
+          response.body.should.have.property("id");
+          done();
+        });
+    });
+    it("should return a 422 if item_name is not included in the body", done => {
+      chai.request(server)
+        .post("/api/v1/items")
+        .send({
+          item_packed: false
+        })
+        .end((err, response) => {
+          response.should.have.status(422);
+          done();
+        });
+    });
+  });
 });
