@@ -63,7 +63,7 @@ const deleteItem = (id) => {
   })
 };
 
-$('.items-container').click(function (event) {
+$(".items-container").on( "click", ".delete-btn", function (event) {
   const id = event.target.id;
   deleteItem(id);
 });
