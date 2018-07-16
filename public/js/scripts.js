@@ -51,4 +51,21 @@ $(function () {
     .catch(error => console.log(error));
 });
 
+const deleteItem = (id) => {
+  const deleteBtnElement = event.target;
+  deleteBtnElement.closest('.item').remove();
+
+  fetch(`/api/v1/items/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+};
+
+$('.items-container').click(function (event) {
+  const id = event.target.id;
+  deleteItem(id);
+});
+
 $(".add-item").on("click", grabItem);

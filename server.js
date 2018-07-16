@@ -37,12 +37,23 @@ app.post("/api/v1/items", (request, response) => {
 
   database("items").insert(item, "id")
     .then(item => {
-      console.log(item)
       response.status(201).json({
-        id: item[0],
-        // item_name: item.item_name,
-        // item_packed: item.item_packed
+        id: item[0]
       });
+    })
+    .catch(error => {
+      response.status(500).json({error});
+    });
+});
+
+app.delete('/api/v1/items/:itemId', (request, response) => {
+
+  const id = request.params.itemId;
+
+  database('items').where("id", id)
+    .del()
+    .then(item => {
+      response.sendStatus(204);
     })
     .catch(error => {
       response.status(500).json({error});
