@@ -1,0 +1,31 @@
+{
+  "name": "mars-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CamArturo/mars-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CamArturo/mars-list/issues"
+  },
+  "homepage": "https://github.com/CamArturo/mars-list#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "knex": "^0.15.1",
+    "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.2.0"
+  }
+}
