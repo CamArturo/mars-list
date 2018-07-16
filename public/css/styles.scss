@@ -1,5 +1,12 @@
+$sand: #f0e7e7;
+$red-orange: #c1440e;
+$header-font: 'Montserrat', sans-serif;
+$text-font: 'Lora', serif;
+
 html {
   box-sizing: border-box;
+  background-color: $sand;
+  font-family: $text-font;
 }
 *, *:before, *:after {
   box-sizing: inherit;
@@ -8,6 +15,18 @@ html {
 h1 {
   text-align: center;
   margin: 50px 0;
+  font-family: $header-font;
+}
+
+input {
+  padding: 10px;
+  margin: 0 10px 0 0;
+}
+
+.btn {
+  width: auto;
+  padding: 10px 16px;
+  background-color: #fff;
 }
 
 .new-item-container {
@@ -16,5 +35,25 @@ h1 {
   margin: 0 0 50px 0;
   .add-item {
     margin-left: 10px;
+  }
+}
+
+.items-container {
+  display: flex;
+  justify-content: center;
+  .item {
+    padding: 20px;
+    border: 1px solid;
+    min-width: 400px;
+    display: flex;
+    justify-content: space-between;
+    background-color: $red-orange;
+    color: #fff;
+    .item-left {
+      width: 75%;
+    }
+    .item-right {
+      width: 25%;
+    }
   }
 }

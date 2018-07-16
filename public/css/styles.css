@@ -1,12 +1,24 @@
 html {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  background-color: #f0e7e7;
+  font-family: "Lora", serif; }
 
 *, *:before, *:after {
   box-sizing: inherit; }
 
 h1 {
   text-align: center;
-  margin: 50px 0; }
+  margin: 50px 0;
+  font-family: "Montserrat", sans-serif; }
+
+input {
+  padding: 10px;
+  margin: 0 10px 0 0; }
+
+.btn {
+  width: auto;
+  padding: 10px 16px;
+  background-color: #fff; }
 
 .new-item-container {
   display: flex;
@@ -14,5 +26,21 @@ h1 {
   margin: 0 0 50px 0; }
   .new-item-container .add-item {
     margin-left: 10px; }
+
+.items-container {
+  display: flex;
+  justify-content: center; }
+  .items-container .item {
+    padding: 20px;
+    border: 1px solid;
+    min-width: 400px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #c1440e;
+    color: #fff; }
+    .items-container .item .item-left {
+      width: 75%; }
+    .items-container .item .item-right {
+      width: 25%; }
 
 /*# sourceMappingURL=styles.css.map */
