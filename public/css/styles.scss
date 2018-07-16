@@ -44,9 +44,9 @@ input {
 }
 
 .items-container {
-  display: flex;
-  justify-content: center;
-  margin: 50px 0 0 0;
+  margin: 50px auto 0;
+  width: 400px;
+  flex-wrap: wrap;
   .item {
     padding: 20px;
     border: 1px solid;

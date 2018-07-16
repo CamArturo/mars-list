@@ -27,11 +27,11 @@ app.get("/api/v1/items", (request, response) => {
 app.post("/api/v1/items", (request, response) => {
   const item = request.body;
 
-  for (let requiredParameter of ["item_name", "item_packed"]) {
+  for (let requiredParameter of ["item_name"]) {
     if (!item[requiredParameter]) {
       return response
         .status(422)
-        .send({error: `Expected format: { item_name: <String>, item_packed: <String> }. You're missing a "${requiredParameter}" property.`});
+        .send({error: `Expected format: { item_name: <String> }. You're missing a "${requiredParameter}" property.`});
     }
   }
 
