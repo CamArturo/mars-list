@@ -37,7 +37,12 @@ app.post("/api/v1/items", (request, response) => {
 
   database("items").insert(item, "id")
     .then(item => {
-      response.status(201).json({id: item[0]});
+      console.log(item)
+      response.status(201).json({
+        id: item[0],
+        // item_name: item.item_name,
+        // item_packed: item.item_packed
+      });
     })
     .catch(error => {
       response.status(500).json({error});
