@@ -40,7 +40,7 @@ $(function () {
         <section class="item">
           <section class="item-left">
             <p>${item.item_name}</p>
-            <input id="${item.id}" type="checkbox" name="item" value="${item.item_packed}">Packed<br>
+            <input id="${item.id}" type="checkbox" name="item" ${item.item_packed ? "checked" : ""}>Packed<br>
           </section>
           <section class="item-right">
             <button id="${item.id}" class="delete-btn btn">Delete</button>
