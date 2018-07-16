@@ -19,14 +19,19 @@ h1 {
 }
 
 input {
-  padding: 10px;
-  margin: 0 10px 0 0;
+  padding: 7px 16px;
+  font-size: 1rem;
+  margin: 0 1rem;
 }
 
 .btn {
   width: auto;
   padding: 10px 16px;
   background-color: #fff;
+  &:hover {
+    background-color: #451804;
+    color: #fff;
+  }
 }
 
 .new-item-container {
@@ -41,6 +46,7 @@ input {
 .items-container {
   display: flex;
   justify-content: center;
+  margin: 50px 0 0 0;
   .item {
     padding: 20px;
     border: 1px solid;

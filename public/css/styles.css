@@ -12,13 +12,17 @@ h1 {
   font-family: "Montserrat", sans-serif; }
 
 input {
-  padding: 10px;
-  margin: 0 10px 0 0; }
+  padding: 7px 16px;
+  font-size: 1rem;
+  margin: 0 1rem; }
 
 .btn {
   width: auto;
   padding: 10px 16px;
   background-color: #fff; }
+  .btn:hover {
+    background-color: #451804;
+    color: #fff; }
 
 .new-item-container {
   display: flex;
@@ -29,7 +33,8 @@ input {
 
 .items-container {
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+  margin: 50px 0 0 0; }
   .items-container .item {
     padding: 20px;
     border: 1px solid;
