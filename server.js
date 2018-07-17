@@ -46,6 +46,46 @@ app.post("/api/v1/items", (request, response) => {
     });
 });
 
+app.patch("/api/v1/items/:itemId", (request, response) => {
+  const id = request.params.itemId;
+  let updatedItem = request.body;
+  const props = Object.getOwnPropertyNames(updatedItem);
+  const requiredProps = ["item_name", "item_packed"];
+  const notInRequiredProps = [];
+
+  props.forEach(prop => {
+    if (!requiredProps.includes(prop)) {
+      notInRequiredProps.push(prop);
+    }
+  });
+
+  if (notInRequiredProps.length >= 1) {
+    return response.status(422).send({error: `Expected format: { item_name: <String>, item_packed: <Boolean> }. Property that is not in the Schema was included.`});
+  }
+
+  updatedItem = {
+    item_packed: updatedItem.item_packed
+  };
+
+  database("items").where("id", id).select()
+    .then(item => {
+      if (!item.length) {
+        response.status(404).send({
+          error: `Not able to update item ${id}`
+        });
+      } else {
+        database("items").where("id", id)
+          .update(updatedItem)
+          .then(item => {
+            response.status(200).send(`Item with id: ${id} was updated.`);
+          })
+          .catch(error => {
+            response.status(500).json({error});
+          });
+      }
+    });
+});
+
 app.delete("/api/v1/items/:itemId", (request, response) => {
 
   const id = request.params.itemId;
@@ -68,48 +108,6 @@ app.delete("/api/v1/items/:itemId", (request, response) => {
     })
     .catch(error => {
       response.status(500).json({error});
-    });
-});
-
-app.patch("/api/v1/items/:itemId", (request, response) => {
-  const id = request.params.itemId;
-  let updatedItem = request.body;
-
-  const props = Object.getOwnPropertyNames(updatedItem);
-  const requiredProps = ["item_name", "item_packed"];
-  const notInRequiredProps = [];
-
-  props.forEach(prop => {
-    if (!requiredProps.includes(prop)) {
-      notInRequiredProps.push(prop)
-    }
-  });
-
-  if (notInRequiredProps.length >= 1) {
-    response.status(422)
-      .json({error});
-  }
-
-  updatedItem = {
-    item_packed: updatedItem.item_packed
-  };
-
-  database("items").where("id", id).select()
-    .then(item => {
-      if (!item.length) {
-        response.status(404).send({
-          error: `Not able to update item ${id}`
-        });
-      } else {
-        database("items").where("id", id)
-          .update(updatedItem)
-          .then(item => {
-            response.sendStatus(200);
-          })
-          .catch(error => {
-            response.status(500).json({error});
-          });
-      }
     });
 });
 

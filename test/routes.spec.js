@@ -78,7 +78,9 @@ describe("API Routes", () => {
           response.should.be.json;
           response.body.should.be.a("array");
           response.body[0].should.have.property("item_name");
+          response.body[0].item_name.should.equal('item1Name');
           response.body[0].should.have.property("item_packed");
+          response.body[0].item_packed.should.equal(true);
           done();
         });
     });
@@ -93,6 +95,7 @@ describe("API Routes", () => {
         })
         .end((err, response) => {
           response.should.have.status(201);
+          response.should.be.json;
           response.body.should.be.a("object");
           response.body.should.have.property("id");
           done();
@@ -106,6 +109,9 @@ describe("API Routes", () => {
         })
         .end((err, response) => {
           response.should.have.status(422);
+          response.should.be.json;
+          response.body.should.be.a("object");
+          response.body.should.have.property("error");
           done();
         });
     });
@@ -133,7 +139,9 @@ describe("API Routes", () => {
           })
         .end((err, response) => {
           response.should.have.status(404);
+          response.should.be.json;
           response.body.should.be.a("object");
+          response.body.should.have.property("error");
           done();
         });
     });
@@ -146,7 +154,9 @@ describe("API Routes", () => {
           })
         .end((err, response) => {
           response.should.have.status(422);
+          response.should.be.json;
           response.body.should.be.a("object");
+          response.body.should.have.property("error");
           done();
         });
     });
@@ -167,6 +177,7 @@ describe("API Routes", () => {
         .end((err, response) => {
           response.should.have.status(404);
           response.body.should.be.a("object");
+          response.body.should.have.property("error");
           done();
         });
     });
