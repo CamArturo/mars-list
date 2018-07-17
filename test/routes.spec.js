@@ -89,7 +89,7 @@ describe("API Routes", () => {
         .post("/api/v1/items")
         .send({
           item_name: "newItem!",
-          item_packed: false
+          item_packed: true
         })
         .end((err, response) => {
           response.should.have.status(201);
@@ -114,11 +114,12 @@ describe("API Routes", () => {
     it("should update/patch item from database", done => {
       chai.request(server)
         .patch("/api/v1/items/1")
-        .send({
-          item_packed: false
-        })
+        .send(
+          {
+            item_packed: false
+          })
         .end((err, response) => {
-          // response.should.have.status(201);
+          response.should.have.status(201);
           response.body.should.be.a("object");
           done();
         });
@@ -129,7 +130,16 @@ describe("API Routes", () => {
       chai.request(server)
         .delete("/api/v1/items/1")
         .end((err, response) => {
-          response.should.have.status(204);
+          response.should.have.status(200);
+          response.body.should.be.a("object");
+          done();
+        });
+    });
+    it("should return 404 if item not found", done => {
+      chai.request(server)
+        .delete("/api/v1/items/999")
+        .end((err, response) => {
+          response.should.have.status(404);
           response.body.should.be.a("object");
           done();
         });

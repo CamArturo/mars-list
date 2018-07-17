@@ -27,11 +27,11 @@ app.get("/api/v1/items", (request, response) => {
 app.post("/api/v1/items", (request, response) => {
   const item = request.body;
 
-  for (let requiredParameter of ["item_name"]) {
+  for (let requiredParameter of ["item_name", "item_packed"]) {
     if (!item[requiredParameter]) {
       return response
         .status(422)
-        .send({error: `Expected format: { item_name: <String> }. You're missing a "${requiredParameter}" property.`});
+        .send({error: `Expected format: { item_name: <String>, item_packed: <Boolean> }. You're missing a "${requiredParameter}" property.`});
     }
   }
 
@@ -46,28 +46,41 @@ app.post("/api/v1/items", (request, response) => {
     });
 });
 
-app.delete('/api/v1/items/:itemId', (request, response) => {
+app.delete("/api/v1/items/:itemId", (request, response) => {
 
   const id = request.params.itemId;
 
-  database('items').where("id", id)
-    .del()
+  database("items").where("id", id).select()
     .then(item => {
-      response.sendStatus(204);
+      if (!item.length) {
+        response.status(404).send({
+          error: `Not able to delete item ${id}`
+        });
+      } else {
+        database("items").where("id", id).del()
+          .then(item => {
+            response.status(200).send(`${item} was deleted. id: ${id}`);
+          })
+          .catch(error => {
+            response.status(500).json({error});
+          });
+      }
     })
     .catch(error => {
       response.status(500).json({error});
     });
 });
 
-app.patch('/api/v1/items/:itemId', (request, response) => {
+app.patch("/api/v1/items/:itemId", (request, response) => {
   const id = request.params.itemId;
+
   let updatedItem = request.body;
+
   updatedItem = {
-    item_packed: updatedItem.value
+    item_packed: updatedItem.item_packed
   };
 
-  database('items').where("id", id)
+  database("items").where("id", id)
     .update(updatedItem)
     .then(item => {
       response.sendStatus(201);
