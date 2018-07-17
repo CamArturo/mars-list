@@ -119,7 +119,7 @@ describe("API Routes", () => {
             item_packed: false
           })
         .end((err, response) => {
-          response.should.have.status(201);
+          response.should.have.status(200);
           response.body.should.be.a("object");
           done();
         });
@@ -133,6 +133,19 @@ describe("API Routes", () => {
           })
         .end((err, response) => {
           response.should.have.status(404);
+          response.body.should.be.a("object");
+          done();
+        });
+    });
+    it("should give 422 if body has other parameter than required in the schema", done => {
+      chai.request(server)
+        .patch("/api/v1/items/1")
+        .send(
+          {
+            asdf: false
+          })
+        .end((err, response) => {
+          response.should.have.status(422);
           response.body.should.be.a("object");
           done();
         });

@@ -75,6 +75,21 @@ app.patch("/api/v1/items/:itemId", (request, response) => {
   const id = request.params.itemId;
   let updatedItem = request.body;
 
+  const props = Object.getOwnPropertyNames(updatedItem);
+  const requiredProps = ["item_name", "item_packed"];
+  const notInRequiredProps = [];
+
+  props.forEach(prop => {
+    if (!requiredProps.includes(prop)) {
+      notInRequiredProps.push(prop)
+    }
+  });
+
+  if (notInRequiredProps.length >= 1) {
+    response.status(422)
+      .json({error});
+  }
+
   updatedItem = {
     item_packed: updatedItem.item_packed
   };
@@ -89,7 +104,7 @@ app.patch("/api/v1/items/:itemId", (request, response) => {
         database("items").where("id", id)
           .update(updatedItem)
           .then(item => {
-            response.sendStatus(201);
+            response.sendStatus(200);
           })
           .catch(error => {
             response.status(500).json({error});
