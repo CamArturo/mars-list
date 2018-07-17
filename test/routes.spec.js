@@ -124,6 +124,19 @@ describe("API Routes", () => {
           done();
         });
     });
+    it("should give 404 if id not found", done => {
+      chai.request(server)
+        .patch("/api/v1/items/533")
+        .send(
+          {
+            item_packed: false
+          })
+        .end((err, response) => {
+          response.should.have.status(404);
+          response.body.should.be.a("object");
+          done();
+        });
+    });
   });
   describe("DELETE /api/v1/items", () => {
     it("should delete item from database", done => {

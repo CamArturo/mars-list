@@ -73,20 +73,28 @@ app.delete("/api/v1/items/:itemId", (request, response) => {
 
 app.patch("/api/v1/items/:itemId", (request, response) => {
   const id = request.params.itemId;
-
   let updatedItem = request.body;
 
   updatedItem = {
     item_packed: updatedItem.item_packed
   };
 
-  database("items").where("id", id)
-    .update(updatedItem)
+  database("items").where("id", id).select()
     .then(item => {
-      response.sendStatus(201);
-    })
-    .catch(error => {
-      response.status(500).json({error});
+      if (!item.length) {
+        response.status(404).send({
+          error: `Not able to update item ${id}`
+        });
+      } else {
+        database("items").where("id", id)
+          .update(updatedItem)
+          .then(item => {
+            response.sendStatus(201);
+          })
+          .catch(error => {
+            response.status(500).json({error});
+          });
+      }
     });
 });
 
