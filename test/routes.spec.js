@@ -77,9 +77,15 @@ describe("API Routes", () => {
           response.should.have.status(200);
           response.should.be.json;
           response.body.should.be.a("array");
+          response.body[0].should.be.a("object");
+          response.body[0].should.have.property("id");
+          response.body[0].should.have.property("id");
+          response.body[0].id.should.be.a("number");
           response.body[0].should.have.property("item_name");
+          response.body[0].item_name.should.be.a("string");
           response.body[0].item_name.should.equal('item1Name');
           response.body[0].should.have.property("item_packed");
+          response.body[0].item_packed.should.be.a("boolean");
           response.body[0].item_packed.should.equal(true);
           done();
         });
@@ -96,6 +102,7 @@ describe("API Routes", () => {
         .end((err, response) => {
           response.should.have.status(201);
           response.should.be.json;
+          response.body.id.should.be.a("number");
           response.body.should.be.a("object");
           response.body.should.have.property("id");
           done();
