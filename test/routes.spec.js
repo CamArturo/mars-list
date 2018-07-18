@@ -79,7 +79,6 @@ describe("API Routes", () => {
           response.body.should.be.a("array");
           response.body[0].should.be.a("object");
           response.body[0].should.have.property("id");
-          response.body[0].should.have.property("id");
           response.body[0].id.should.be.a("number");
           response.body[0].should.have.property("item_name");
           response.body[0].item_name.should.be.a("string");
@@ -135,6 +134,7 @@ describe("API Routes", () => {
         .end((err, response) => {
           response.should.have.status(200);
           response.body.should.be.a("object");
+          Object.keys(response.body).length.should.equal(0);
           done();
         });
     });
@@ -178,6 +178,7 @@ describe("API Routes", () => {
         .end((err, response) => {
           response.should.have.status(200);
           response.body.should.be.a("object");
+          Object.keys(response.body).length.should.equal(0);
           done();
         });
     });
