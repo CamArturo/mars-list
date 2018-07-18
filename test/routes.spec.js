@@ -134,6 +134,7 @@ describe("API Routes", () => {
         .end((err, response) => {
           response.should.have.status(200);
           response.body.should.be.a("object");
+          response.text.should.equal('Item with id: ' + 1 + ' was updated.');
           Object.keys(response.body).length.should.equal(0);
           done();
         });
@@ -167,6 +168,7 @@ describe("API Routes", () => {
           response.body.should.be.a("object");
           response.body.should.have.property("error");
           response.body.error.should.be.a("string");
+          response.body.error.should.equal(`Expected format: { item_name: <String>, item_packed: <Boolean> }. Property that is not in the Schema was included.`);
           done();
         });
     });
@@ -179,6 +181,7 @@ describe("API Routes", () => {
           response.should.have.status(200);
           response.body.should.be.a("object");
           Object.keys(response.body).length.should.equal(0);
+          response.text.should.equal('Item with id: ' + 1 + ' was deleted.');
           done();
         });
     });

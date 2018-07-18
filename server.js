@@ -99,7 +99,7 @@ app.delete("/api/v1/items/:itemId", (request, response) => {
       } else {
         database("items").where("id", id).del()
           .then(item => {
-            response.status(200).send(`${item} was deleted. id: ${id}`);
+            response.status(200).send(`Item with id: ${id} was deleted.`);
           })
           .catch(error => {
             response.status(500).json({error});
